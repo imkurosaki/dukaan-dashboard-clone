@@ -3,8 +3,9 @@ import { menuList } from '../../db/menuList'
 import Credits from './Credits'
 
 export default function Sidebar() {
-    return <div className="hidden lg:block h-screen sticky top-0 w-64 bg-blue-950 p-4 text-white">
-        <div className='flex justify-between'>
+
+    return <div className="hidden lg:block h-screen sticky top-0 bg-blue-950 p-4 text-white">
+        <div className='flex justify-between w-44'>
             <div className='flex gap-4'>
                 <img src={`${nishyan}`} className='rounded-xl w-10' />
                 <div>

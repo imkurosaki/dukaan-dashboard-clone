@@ -5,7 +5,7 @@ import Navbar from "../navbar/ Navbar";
 export default function Dashboard() {
     return <div className="w-full lg:w-46">
         <Navbar />
-        <div className="px-10 bg-slate-50 flex flex-col gap-10 pt-8">
+        <div className="px-6 md:px-10 bg-slate-50 flex flex-col gap-10 pt-8 ">
             <Overview />
             <Transaction />
             <div className="flex justify-center mb-10">

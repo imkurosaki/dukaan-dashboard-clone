@@ -1,8 +1,66 @@
 import Searchbar from "./Searchbar";
+import { sidebarAtom } from "../../atom/sidebar";
+import { useRecoilState } from "recoil";
+import nishyan from '/public/nishyan.svg'
+import { menuList } from '../../db/menuList'
+import Credits from "../sidebar/Credits";
 
 export default function Navbar() {
-    return <div className="sticky top-0 z-10 bg-white flex justify-between items-center px-10 pt-6 pb-3 border-b drop-shadow-sm">
+    const [sidebar, setSideBar] = useRecoilState(sidebarAtom)
+
+    const sideBarHandler = () => {
+        if (sidebar) {
+            setSideBar(false)
+            return;
+        }
+        setSideBar(true)
+    }
+
+    return <div className="sticky top-0 z-10 bg-white flex justify-between items-center px-6 md:px-10 pt-6 pb-3 border-b drop-shadow-sm">
+        <div className={`${sidebar ? "block" : "hidden"} absolute top-0 right-0 z-10 w-full h-screen lg:hidden`}>
+            <div className="absolute top-0 right-0 z-10 w-full h-screen bg-gray-500 opacity-50"></div>
+            <div className="flex">
+                <button onClick={sideBarHandler} className="absolute z-20 top-8 right-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 fill-gray-100">
+                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clipRule="evenodd" />
+                    </svg>
+                </button>
+
+                <div className="z-20 h-screen sticky top-0 bg-blue-950 p-4 text-white">
+                    <div className='flex justify-between w-44'>
+                        <div className='flex gap-4'>
+                            <img src={`${nishyan}`} className='rounded-xl w-10' />
+                            <div>
+                                <p className='text-sm'>Nishyan</p>
+                                <a href="" className='text-xs underline font-light text-gray-300'>Visit Store</a>
+                            </div>
+                        </div>
+                        <div className='flex items-center'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-1 mt-4'>
+                        {menuList.map((menu) => {
+                            return <button key={menu.id} className='flex gap-3 items-center text-sm hover:bg-gray-500 px-4 py-2 rounded'>
+                                <img src={`${menu.icon}`} className='h-4 w-4' />
+                                {menu.menu}
+                            </button>
+                        })}
+                    </div>
+                    <Credits />
+                </div>
+            </div>
+        </div>
+
         <div className="flex gap-4">
+            {/* Hamburger menu */}
+            <button onClick={sideBarHandler} className="block lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
             <p className="text-xl">Payouts</p>
             <div className="flex items-center gap-1 text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
